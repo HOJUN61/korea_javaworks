@@ -11,6 +11,8 @@ public class ExceptionHandling2 {
 		} catch (ClassNotFoundException e) {
 			System.out.println("클래스를 찾을 수 없습니다.");
 			e.printStackTrace();
+		} finally { // 항상 수행되어야 하는 영역을 설정할 때 사용함
+			System.out.println("항상 수행됨");
 		}
 
 	}

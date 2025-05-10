@@ -6,10 +6,10 @@ public class Car {
 	private int carNumber; //자동차 번호
 	
 	//생성자
-	public Car(s) {
+	/*public Car(s) {
 		serialNum++;
 		carNumber = serialNum;
-	}
+	}*/
 	
 	// 접근자
 	public int getCarNumber() {

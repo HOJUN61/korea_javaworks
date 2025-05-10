@@ -16,31 +16,36 @@ public class BankMain {
 			System.out.println("==========================================");
 			System.out.print("선택> ");
 			
-			int selectNum = Integer.parseInt(scan.nextLine());		
-			switch(selectNum) {
-			case 1:
-				createAccount();
-				break;
-				
-			case 2:
-				getAccountList();
-				break;
-				
-			case 3:
-				deposit();
-				break;
-				
-			case 4:
-				withdraw();
-				break;
-				
-			case 5:
-				System.out.println("프로그램을 종료합니다.");
-				sw = false;
-				break;
-			default:
-				System.out.println("지원되지 않은 기능입니다. 다시 입력하세요");
-				break;
+			try { //메뉴 선택시 문자 입력으로 인한 예외 처리
+			
+				int selectNum = Integer.parseInt(scan.nextLine());		
+				switch(selectNum) {
+				case 1:
+					createAccount();
+					break;
+					
+				case 2:
+					getAccountList();
+					break;
+					
+				case 3:
+					deposit();
+					break;
+					
+				case 4:
+					withdraw();
+					break;
+					
+				case 5:
+					System.out.println("프로그램을 종료합니다.");
+					sw = false;
+					break;
+				default:
+					System.out.println("지원되지 않은 기능입니다. 다시 입력하세요");
+					break;
+				}
+			}catch(NumberFormatException e) {
+				System.out.println("잘못된 입력입니다. 다시 입력하세요.");
 			}
 		}//while() 닫기
 		scan.close();
@@ -70,17 +75,20 @@ public class BankMain {
 		System.out.print("계좌번호: ");
 		String ano = scan.nextLine(); //계좌 입력
 		
-		System.out.print("출금액: ");
-		int amount = Integer.parseInt(scan.nextLine());
-		
 		if(findAccount(ano) !=null) { //일치되는 계좌번호가 있으면 
 			BankAccount account = findAccount(ano); //계좌 객체 생성
-			if(amount > account.getBalance()) {
-				System.out.println("잔액이 부족합니다. 다시 입력하세요.");
-			}else {
-			//출금 = 잔고 - 입금액
-			account.setBalance(account.getBalance() - amount);
-			System.out.println("결과: 정상 출금 되었습니다. 현재 잔액: " + account.getBalance());
+			while(true) {
+				System.out.print("출금액: ");
+				int amount = Integer.parseInt(scan.nextLine());
+				
+				if(amount > account.getBalance()) {
+					System.out.println("잔액이 부족합니다. 다시 입력하세요.");
+				}else {
+				//출금 = 잔고 - 입금액
+					account.setBalance(account.getBalance() - amount);
+					System.out.println("결과: 정상 출금 되었습니다. 현재 잔액: " + account.getBalance());
+					break; // while문 빠져나옴
+				}
 			}
 		}else {
 			System.out.println("결과: 계좌가 없습니다.");
